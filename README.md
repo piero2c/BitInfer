@@ -21,7 +21,7 @@ base_model = deepcopy(model)
 helpers.freeze_parameters(model, learnable_biases=['query', 'output'])
 ```
 
-Saving the bias vector offsets and classification head takes less than 300Kb space.
+Saving the bias vector offsets and classification head takes less than 300Kb.
 
 ```python
 helpers.save_bitfit(base_model, model, 'sentiment_analysis.pt')
