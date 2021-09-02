@@ -33,7 +33,7 @@ os.path.getsize('sentiment_analysis.pt')  # 208Kb
 ```python
 from bitinfer.inference import TorchDynamicInferenceSession
 
-sess = TorchDynamicInferenceSession('bert-base-uncased', device='cuda')
+sess = TorchDynamicInferenceSession('bert-base-uncased', device='cpu')
 
 sentiment_analysis_hash = b'UEsDBAAACAg...'  # 313Kb base64 hash
 sentence_similarity_model = 'my_model2.pt'
