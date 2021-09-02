@@ -21,11 +21,14 @@ base_model = deepcopy(model)
 helpers.freeze_parameters(model, learnable_biases=['query', 'output'])
 ```
 
-Saving the bias vector offsets and classification head takes less than 300Kb.
+Saving the bias vector offsets and classification head takes less than 300Kb of space.
 
 ```python
 helpers.save_bitfit(base_model, model, 'sentiment_analysis.pt')
 os.path.getsize('sentiment_analysis.pt')  # 208Kb
+
+# Alternatively, we can store the model w/ base64 hashes
+model_hash = base64.b64encode(open('sentiment_analysis.pt'))  # 313Kb
 ```
 
 **Serving multiple bitfit models**
@@ -35,8 +38,10 @@ from bitinfer.inference import TorchDynamicInferenceSession
 
 sess = TorchDynamicInferenceSession('bert-base-uncased', device='cpu')
 
-sentiment_analysis_hash = b'UEsDBAAACAg...'  # 313Kb base64 hash
+# Let's load three bitfit models finetuned on `bert-base-uncased`
+sentiment_analysis_hash = b'UEsDBAAACAg...'
 sentence_similarity_model = 'my_model2.pt'
+my_nli_model_sd = torch.load('my_nli_model.pt')
 ```
 
 Since the bitfit parameters are lightweight (< 1MB), we can serve multiple models in real-time with no speed penalty.
