@@ -31,7 +31,7 @@ helpers.save_bitfit(original_model, finetuned_model, 'sentiment_analysis.pt')
 os.path.getsize('sentiment_analysis.pt')  # 208Kb
 
 # Alternatively, we can also store the model using a base64 hash
-model_hash = base64.b64encode(open('sentiment_analysis.pt'))  # 313Kb
+model_hash = base64.b64encode(open('sentiment_analysis.pt', 'rb').read())  # 313Kb
 ```
 
 **Serving multiple bitfit models**
