@@ -1,6 +1,6 @@
 # BitInfer
 
-This package provides an easy way to deploy a large pool of custom fine-tuned BERT models with BitFit ([Zaken et. al, arXiv:2106.10199](https://arxiv.org/abs/2106.10199)) in a single Pytorch model instance without any speed penalty.
+This package provides an easy and efficient way to deploy a large pool of custom fine-tuned BERT models with BitFit ([Zaken et. al, arXiv:2106.10199](https://arxiv.org/abs/2106.10199)) using a single Pytorch model instance.
 
 ## Usage
 
