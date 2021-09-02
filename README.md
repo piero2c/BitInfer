@@ -12,22 +12,25 @@ from transformers import BertForSequenceClassification
 from copy import deepcopy
 
 # Loads a Bert model for text-classification
-model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=3)
+finetuned_model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=3)
 
 # We'll need the original model weights later
-base_model = deepcopy(model)
+original_model = deepcopy(model)
 
 # Freezes all model parameters except for query and output bias vectors
-helpers.freeze_parameters(model, learnable_biases=['query', 'output'])
+helpers.freeze_parameters(finetuned_model, learnable_biases=['query', 'output'])
+
+# Train the model as usual
+...
 ```
 
 Saving the bias vector offsets and classification head takes less than 300Kb of space.
 
 ```python
-helpers.save_bitfit(base_model, model, 'sentiment_analysis.pt')
+helpers.save_bitfit(original_model, finetuned_model, 'sentiment_analysis.pt')
 os.path.getsize('sentiment_analysis.pt')  # 208Kb
 
-# Alternatively, we can store the model w/ base64 hashes
+# Alternatively, we can also store the model using a base64 hash
 model_hash = base64.b64encode(open('sentiment_analysis.pt'))  # 313Kb
 ```
 
